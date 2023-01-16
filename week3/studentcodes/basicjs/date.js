@@ -16,16 +16,29 @@ const days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Satur
 
       var dateString = today.toLocaleString();
       var day = today.getDay();
+      
 	  //Write your own code here 
+        var numdate = today.getDate();
+      var nummonth = today.getMonth();
+      var year = today.getFullYear();
       var time = today.getTime();
+      var hour = today.getHours();
+      var AorP = "AM";
+      if(hour>=12)
+      {
+            AorP = "PM"
+            hour = hour-12;
+      }
+      var minu = today.getMinutes();
+      var seco = today.getSeconds();
 
 
 // Display the parts
 
-      document.write(
-        "Date: " + dateString + "<br />",
-        "Day: " + day + "<br />");
+      // document.write(
+      //   "Date: " + dateString + "<br />",
+      //   "Day: " + day + "<br />");
         
 	//Write your own code here 
-      document.write("Today: "+days[day]);
-      document.write("Time: "+time);
+      document.write("Today: "+days[day]+" "+numdate+" "+months[nummonth]+", "+year);
+      document.write(" "+hour+":"+minu+":"+seco+" "+AorP);
