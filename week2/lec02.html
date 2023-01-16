@@ -1,0 +1,126 @@
+<html>
+
+<body>
+    <div>
+        <ul>
+            <li>Hello there</li>
+            <li>Hello there</li>
+            <li>Hello there</li>
+        </ul>
+    </div>
+    <!-- div>h1+p+h3 -->
+    <div>
+        <h1>Nice</h1>
+        <p>Bedrock</p>
+        <h3>Salmon steak</h3>
+    </div>
+    <!-- div>ul>(li*3)^p -->
+    <div>
+        <ul>
+            <li>salmon</li>
+            <li>steak</li>
+            <li>salad</li>
+        </ul>
+        <p>tomato</p>
+    </div>
+    <!-- ul>li.item*5 -->
+    <ul>
+        <li class="item"></li>
+        <li class="item"></li>
+        <li class="item"></li>
+        <li class="item"></li>
+        <li class="item"></li>
+    </ul>
+    <!-- ul>li.item$*5 -->
+    <ul>
+        <li class="item1"></li>
+        <li class="item2"></li>
+        <li class="item3"></li>
+        <li class="item4"></li>
+        <li class="item5"></li>
+    </ul>
+    <!-- ul>li.item#item$*5 -->
+    <ul>
+        <li class="item" id="item1"></li>
+        <li class="item" id="item2"></li>
+        <li class="item" id="item3"></li>
+        <li class="item" id="item4"></li>
+        <li class="item" id="item5"></li>
+    </ul>
+    <!-- ul>li#item$*5 -->
+    <ul>
+        <li id="item1"></li>
+        <li id="item2"></li>
+        <li id="item3"></li>
+        <li id="item4"></li>
+        <li id="item5"></li>
+    </ul>
+    <!-- ul>li#item$*@-5 -->
+    <ul>
+        <li id="item5"></li>
+        <li id="item4"></li>
+        <li id="item3"></li>
+        <li id="item2"></li>
+        <li id="item1"></li>
+    </ul>
+    <!-- ul>li#item$@-10*5 -->
+    <ul>
+        <li id="item14"></li>
+        <li id="item13"></li>
+        <li id="item12"></li>
+        <li id="item11"></li>
+        <li id="item10"></li>
+    </ul>
+    <!-- ul>li#item$@5{item$@5}*5 -->
+    <ul>
+        <li id="item5">item5</li>
+        <li id="item6">item6</li>
+        <li id="item7">item7</li>
+        <li id="item8">item8</li>
+        <li id="item9">item9</li>
+    </ul>
+
+    <div>
+        <header>
+            <ul>
+                <li></li>
+            </ul>
+        </header>
+        <section>
+            <ul>
+                <li class="class"></li>
+            </ul>
+        </section>
+        <section>
+            <ul>
+                <li class="class"></li>
+            </ul>
+        </section>
+        <footer>
+            <p>Create by ...</p>
+        </footer>
+    </div>
+    <!-- div>header>(ul>li)^(section>ul>li.class)*2+footer>p{Create by ...} -->
+    <div>
+        <header>
+            <ul>
+                <li></li>
+            </ul>
+        </header>
+        <section>
+            <ul>
+                <li class="class"></li>
+            </ul>
+        </section>
+        <section>
+            <ul>
+                <li class="class"></li>
+            </ul>
+        </section>
+        <footer>
+            <p>Create by ...</p>
+        </footer>
+    </div>
+</body>
+
+</html>
