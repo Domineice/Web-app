@@ -5,6 +5,8 @@
     
 // Get the current date
 
+// 6213129 Posawat Tangon
+
 const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
 const days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
@@ -30,8 +32,16 @@ const days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Satur
             hour = hour-12;
       }
       var minu = today.getMinutes();
+      if(minu <10)
+      {
+            minu = "0"+minu;
+      }
+      
       var seco = today.getSeconds();
-
+      if(seco <10)
+      {
+            seco = "0"+seco;
+      }
 
 // Display the parts
 
