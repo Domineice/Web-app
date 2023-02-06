@@ -20,6 +20,9 @@ routing.get("/profile/:id", function (req, res) {
       }
   }
   res.send(
+    "<h1>id: " +
+    obj.users[parseInt(arrnum)].id +
+    "</h1>" +
     "<h1>username: " +
       obj.users[parseInt(arrnum)].username +
       "</h1>" +
