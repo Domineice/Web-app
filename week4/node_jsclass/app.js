@@ -178,23 +178,97 @@ s.on('end',function() {
 // res.end(JSON.stringify(myUser))
 // }).listen(8081,'127.0.0.1')
 
-var http=require('http')
-var fs=require('fs')
+// var http=require('http')
+// var fs=require('fs')
 
-http.createServer(function(req,res){
-if(req.url==='/home'||req.url==='/'){
-    res.writeHead(200,{'Content-Type':'text/html'})
-    var myStream = fs.createReadStream(__dirname+'/'+'index.html','utf8')
-    myStream.pipe(res)
-}
-else if(req.url==='/about'||req.url==='/'){
-    res.writeHead(200,{'Content-Type':'text/html'})
-    var myStream = fs.createReadStream(__dirname+'/'+'about.html','utf8')
-    myStream.pipe(res)
-}
-else{
-    res.writeHead(404,{'Content-Type':'text/html'})
-    var myStream = fs.createReadStream(__dirname+'/'+'notfound.html','utf8')
-    myStream.pipe(res)
-    }
-}).listen(8081,'127.0.0.1')
+// http.createServer(function(req,res){
+// if(req.url==='/home'||req.url==='/'){
+//     res.writeHead(200,{'Content-Type':'text/html'})
+//     var myStream = fs.createReadStream(__dirname+'/'+'index.html','utf8')
+//     myStream.pipe(res)
+// }
+// else if(req.url==='/about'||req.url==='/'){
+//     res.writeHead(200,{'Content-Type':'text/html'})
+//     var myStream = fs.createReadStream(__dirname+'/'+'about.html','utf8')
+//     myStream.pipe(res)
+// }
+// else{
+//     res.writeHead(404,{'Content-Type':'text/html'})
+//     var myStream = fs.createReadStream(__dirname+'/'+'notfound.html','utf8')
+//     myStream.pipe(res)
+//     }
+// }).listen(8081,'127.0.0.1')
+
+// var express = require('express')
+// var app = express()
+
+// var cb0 = function (req, res, next) {
+//     console.log('CB0')
+//     next()
+//   }
+  
+//   var cb1 = function (req, res, next) {
+//     console.log('CB1')
+//     next()
+//   }
+  
+//   var cb2 = function (req, res) {
+//     console.log('CB2')
+//     res.send('Hello from C!')
+//   }
+  
+//   app.get('/example/c', [cb0, cb1, cb2])
+
+//   app.listen(8081)
+
+// var express = require('express')
+// var app = express()
+// app.get('/showForm',function(req,res){
+//     res.sendFile(__dirname+"/"+"showForm.html")
+// })
+
+// app.get('/showData',function(req,res){
+//     data= {
+//         fname: req.query.fname,
+//         lname: req.query.lname
+//     }
+//     console.log(data)
+
+//     res.end(JSON.stringify(data))
+// })
+
+// app.listen(8081)
+
+// var express = require('express')
+// var app = express()
+// app.use(express.json()) //For JSON requests
+// app.use(express.urlencoded({extended: true}));
+
+
+// app.get('/showForm',function(req,res){
+//     res.sendFile(__dirname+"/"+"showForm.html")
+// })
+
+// app.post('/showData',function(req,res){
+//     data= {
+//         fname: req.body.fname,
+//         lname: req.body.lname
+//     }
+//     console.log(data)
+
+//     res.end(JSON.stringify(data))
+//     //res.end("<h1>"+data.fname+" "+data.lname+"</h1>")
+// })
+
+// app.listen(8081)
+
+var express = require('express')
+var app = express()
+
+app.set('view engine','ejs') //Set View
+app.get('/:name',function(req,res){
+  var data = {user : "bob",job: "student"}
+    res.render('profile',{person: req.params.name,data : data})
+})
+
+app.listen(8081)
