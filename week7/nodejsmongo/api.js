@@ -63,7 +63,7 @@ app.get('/showage/:age',function(req,res){
     }).catch(console.error)
 })
 
-app.get('/updatestudent',function(req,res){
+app.put('/updatestudent',function(req,res){
     updateLast("Lamb","Fox").then((result)=>{
         console.log(result)
         res.json(result)
