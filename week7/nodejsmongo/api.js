@@ -31,25 +31,53 @@ async function showMajor(findMajor){
     return findResult
 }
 
+async function insertStudent(newStudent){
+    const insertResult = await collection.insertOne(newStudent)
+    return insertResult
+}
+
+async function updateStudent(editStudent){
+    var editData = {id:parseInt(editStudent.id)}
+    console.log(editStudent.lastname)
+    var newData = {$set: {lastname: editStudent.lastname}}
+    const insertResult = await collection.updateOne(editData,newData)
+    return insertResult
+}
+
+async function deleteStudent(id){
+    var editData = {id :parseInt(id)}
+    // console.log(editStudent.lastname)
+    // var newData = {$set: {lastname: editStudent.lastname}}
+    const insertResult = await collection.deleteOne(editData)
+    return insertResult
+}
+
 async function showAge(findAge){
     var query = {age :{$lt:parseInt(findAge)}}
     const findResult = await collection.find(query).sort({age:-1}).toArray()
     return findResult
 }
-async function updateLast(before,after){
-    var query = {lastname :before}
- var newData = {$set: {name: after}}
- const updateResult = await collection.updateMany(query,newData)
- console.log('Found documents =>', updateResult);
-}
+
+// async function updateLast(before,after){
+//     var query = {lastname :before}
+//  var newData = {$set: {name: after}}
+//  const updateResult = await collection.updateMany(query,newData)
+//  console.log('Found documents =>', updateResult);
+// }
 
 dbConnect().catch(console.error)
-
-
 
 app.get('/showmajor/:major',function(req,res){
     console.log("Show major : %s",req.params.major)
     showMajor(req.params.major).then((result)=>{
+        console.log(result)
+        res.json(result)
+    }).catch(console.error)
+})
+
+app.post('/insertstudent/',function(req,res){
+    console.log("Insert : %s",req.body)
+    insertStudent(req.body).then((result)=>{
         console.log(result)
         res.json(result)
     }).catch(console.error)
@@ -63,8 +91,15 @@ app.get('/showage/:age',function(req,res){
     }).catch(console.error)
 })
 
-app.put('/updatestudent',function(req,res){
-    updateLast("Lamb","Fox").then((result)=>{
+app.put('/updatestudent/',function(req,res){
+    updateStudent(req.body).then((result)=>{
+        console.log(result)
+        res.json(result)
+    }).catch(console.error)
+})
+
+app.delete('/deletestudent/:id',function(req,res){
+    deleteStudent(req.params.id).then((result)=>{
         console.log(result)
         res.json(result)
     }).catch(console.error)
