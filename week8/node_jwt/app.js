@@ -1,3 +1,4 @@
+// 6213129 Posawat Tangon
 const express = require("express");
 const jwt = require("jsonwebtoken");
 var app = express();
@@ -71,18 +72,6 @@ app.get("/api/students", ensureToken, (req, res) => {
   });
 });
 
-// app.get("api/students", ensureToken, (req, res) => {
-//     jwt.verify(req.token, "secret_key_goes_here", function (err, data) {
-//         if (err) {
-//           res.sendStatus(403);
-//         } else {
-//           res.json({
-//             description: "Protected information. Congrats!",
-//             data: data,
-//           });
-//         }
-//       });
-// });
 
 app.post("/api/login", (req, res) => {
   // insert code here to actually authenticate, or fake it
