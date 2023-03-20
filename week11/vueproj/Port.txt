@@ -1,0 +1,1 @@
+index.html -> main.js -> app.vue ->router/index/js ->(Home.vue + About.vue + Page.vue)
