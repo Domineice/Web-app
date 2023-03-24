@@ -76,6 +76,7 @@ app.get("/api/students", ensureToken, (req, res) => {
 app.post("/api/login", (req, res) => {
   // insert code here to actually authenticate, or fake it
   const user = req.body;
+  console.log(user)
   var query = { username: user.username, password: user.password };
   // then return a token, secret key should be an env variable
   isMatch(query)
