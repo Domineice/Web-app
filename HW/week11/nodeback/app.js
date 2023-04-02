@@ -11,7 +11,7 @@ const url = "mongodb://127.0.0.1:27017";
 const client = new MongoClient(url);
 
 // Database Name
-const dbName = "assign1";
+const dbName = "ContactList";
 let db;
 let collection;
 
@@ -20,7 +20,7 @@ async function dbConnect() {
   console.log("DB connect successful");
 
   db = client.db(dbName);
-  collection = db.collection("assign1Contacts");
+  collection = db.collection("Contacts");
   return "done.";
 }
 
@@ -110,7 +110,7 @@ app.delete("/contacts/:id", function (req, res) {
     .catch(console.error);
 });
 
-var server = app.listen(5000, function () {
+var server = app.listen(5005, function () {
   const host = "127.0.0.1";
   const port = server.address().port;
   console.log("Application is running at http://%s:%s", host, port);
