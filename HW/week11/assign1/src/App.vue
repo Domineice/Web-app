@@ -1,25 +1,33 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import login from "../src/components/login.vue"
+import searchbar from "../src/components/searchbar.vue"
+import NewContact from "./components/NewContact.vue";
+import cardList from "../src/components/Card.vue"
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+  
+    <div class="barformat" background-color="black">
+      <div class="ui large secondary inverted pointing menu">
+        <img src="./assets/logo.svg" width="40" height="40" />
+        <a class="active item">Contact</a>
+        <div class="right item">
+          <i class="user icon"></i>
+        </div>
+      </div>
     </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+    <searchbar/>
+    <!-- <login/> -->
+    <!-- <NewContact/> -->
+    <cardList/>
 </template>
 
 <style scoped>
 header {
   line-height: 1.5;
+}
+div.barformat {
+  background-color: black;
 }
 
 .logo {
