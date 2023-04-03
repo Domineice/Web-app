@@ -10,10 +10,14 @@ const { MongoClient, Collection } = require("mongodb");
 const url = "mongodb://127.0.0.1:27017";
 const client = new MongoClient(url);
 
+const cors = require('cors')
+
 // Database Name
 const dbName = "ContactList";
 let db;
 let collection;
+
+app.use(cors())
 
 async function dbConnect() {
   await client.connect();
