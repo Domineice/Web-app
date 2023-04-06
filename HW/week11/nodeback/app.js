@@ -34,28 +34,28 @@ async function addContect(newContect) {
 }
 
 async function showById(id) {
-  var query = { cid: parseInt(id) };
+  var query = { cid: id };
   const findResult = await collection.find(query).sort({ cid: 1 }).toArray();
   return findResult;
 }
 
 async function deleteById(id) {
-  var query = { cid: parseInt(id) };
+  var query = { cid: id };
   const deleteResult = await collection.deleteOne(query)
   return deleteResult;
 }
 
 async function updateById(id, editContacts) {
-  var query = { cid: parseInt(id) };
+  var query = { cid: id };
   var newData = {
     $set: {
       cid: id,
       firstname: editContacts.firstname,
       lastname: editContacts.lastname,
       email: editContacts.email,
-      mobile: editContacts.mobilenumber,
+      mobile: editContacts.mobile,
       facebook: editContacts.facebook,
-      imageUrl: editContacts.image
+      imageUrl: editContacts.imageUrl
     }
   };
 
@@ -97,10 +97,10 @@ app.get("/contacts/:id", function (req, res) {
 });
 
 app.post("/contacts/:id", function (req, res) {
-  updateById(req.params.id)
+  updateById(req.params.id,req.body)
     .then((result) => {
-      console.log(result);
-      res.json(result);
+      // console.log(result);
+      // res.json(result);
     })
     .catch(console.error);
 });

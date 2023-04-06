@@ -1,11 +1,21 @@
 <script>
-import axios from "axios";
-import { useRouter } from "vue-router";
-export default {
-  name: "newContact",
-  data() {
+import axios from 'axios';
+  export default{
+    name :"editContact",
+    data() {
     return {
-      contact: {
+      editID:"",
+      getcontact: [],
+      prevcontact: {
+        cid: "",
+        firstname: "",
+        lastname: "",
+        email: "",
+        mobile: "",
+        facebook: "",
+        imageUrl: "",
+      },
+      editcontact: {
         cid: "",
         firstname: "",
         lastname: "",
@@ -16,47 +26,73 @@ export default {
       },
     };
   },
+  mounted() {
+    console.log(this.$route.params.editId)
+    var url = "http://127.0.0.1:5005/contacts/"+this.$route.params.editId;
+    // console.log(url);
+    axios
+      .get(url)
+      .then((response) => {
+        this.getcontact = response.data[0];
+        this.editcontact= this.getcontact;
+        this.prevcontact= this.getcontact;
+        // console.log(this.editcontact);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
   methods: {
-    pushToAPI() {
-      var url = "http://127.0.0.1:5005/contacts/";
-      // const router = useRouter()
-      if(this.contact.firstname.length > 0 &&
-        this.contact.lastname.length > 0 &&
-        this.contact.mobile.length > 0 &&
-        this.contact.cid.length > 0){
-          // this.$router.replace("/Cards");
-          if(this.contact.imageUrl.length > 0)
-          {
-            this.contact.imageUrl = "https://fomantic-ui.com/images/avatar2/large/kristy.png"
-          }
+    editToAPI() {
+      this.keepPrevValue()
+      var url = "http://127.0.0.1:5005/contacts/"+this.$route.params.editId;
+     
         axios
-        .post(url, this.contact)
+        .post(url,this.editcontact)
         .then((response) => {
           console.log(response);
-          
         })
         .catch((error) => {
           console.error();
         })
-        alert("Add successful")
-        this.$router.replace("/Cards");
-      }
-      else{
-        alert("Please assign * input")
-      }
+        alert("Edit successful")
+        this.$router.push("/Cards");
       
     },
+    keepPrevValue(){
+      if(this.editcontact.cid.length<=0){
+        this.editcontact.cid = this.prevcontact.cid
+      }
+      if(this.editcontact.firstname.length<=0){
+        this.editcontact.firstname = this.prevcontact.firstname
+      }
+      if(this.editcontact.lastname.length<=0){
+        this.editcontact.lastname = this.prevcontact.lastname
+      }
+      if(this.editcontact.mobile.length<=0){
+        this.editcontact.mobile = this.prevcontact.mobile
+      }
+      if(this.editcontact.email.length<=0){
+        this.editcontact.email = this.prevcontact.email
+      }
+      if(this.editcontact.facebook.length<=0){
+        this.editcontact.facebook = this.prevcontact.facebook
+      }
+      if(this.editcontact.imageUrl.length<=0){
+        this.editcontact.imageUrl = this.prevcontact.imageUrl
+      }
+    },
     clearfield() {
-      this.contact.cid = "";
-      this.contact.firstname = "";
-      this.contact.lastname = "";
-      this.contact.email = "";
-      this.contact.mobile = "";
-      this.contact.facebook = "";
-      this.contact.imageUrl = "";
+      this.editcontact.cid = "";
+      this.editcontact.firstname = "";
+      this.editcontact.lastname = "";
+      this.editcontact.email = "";
+      this.editcontact.mobile = "";
+      this.editcontact.facebook = "";
+      this.editcontact.imageUrl = "";
     },
   },
-};
+  }
 </script>
 <template>
   <div class="row justify-content-center align-items-center">
@@ -66,60 +102,60 @@ export default {
         <form class="ui large form">
           <div class="ui stacked segment">
             <h2 class="ui dividing header">
-              Contacts<span class="ui teal horizontal label">new</span>
+              Contacts<span class="ui teal horizontal label">Add</span>
             </h2>
             <div class="field">
               <h6 class="loginText">
-                ContactID<span class="ui red text">*</span>
+                ContactID
               </h6>
               <div class="ui input focus">
                 <input
                   type="text"
                   name="text"
-                  placeholder="add ContactID"
-                  v-model="contact.cid"
+                  placeholder= "edit cid" 
+                  v-model="editcontact.cid"
                 />
               </div>
             </div>
 
             <div class="field">
               <h6 class="loginText">
-                First Name<span class="ui red text">*</span>
+                First Name 
               </h6>
               <div class="ui input focus">
                 <input
                   type="text"
                   name="text"
-                  placeholder="add First Name"
-                  v-model="contact.firstname"
+                  placeholder="edit firstname"
+                  v-model="editcontact.firstname"
                 />
               </div>
             </div>
 
             <div class="field">
               <h6 class="loginText">
-                Last Name<span class="ui red text">*</span>
+                Last Name 
               </h6>
               <div class="ui input focus">
                 <input
                   type="text"
                   name="text"
-                  placeholder="add Last Name"
-                  v-model="contact.lastname"
+                  placeholder="edit lastname"
+                  v-model="editcontact.lastname"
                 />
               </div>
             </div>
 
             <div class="field">
               <h6 class="loginText">
-                Mobile No<span class="ui red text">*</span>
+                Mobile No 
               </h6>
               <div class="ui input focus">
                 <input
                   type="text"
                   name="text"
-                  placeholder="add Mobile No"
-                  v-model="contact.mobile"
+                  placeholder="edit mobile no"
+                  v-model="editcontact.mobile"
                 />
               </div>
             </div>
@@ -130,8 +166,8 @@ export default {
                 <input
                   type="text"
                   name="text"
-                  placeholder="add Email"
-                  v-model="contact.email"
+                  placeholder="edit email"
+                  v-model="editcontact.email"
                 />
               </div>
             </div>
@@ -142,8 +178,8 @@ export default {
                 <input
                   type="text"
                   name="text"
-                  placeholder="add Facebook"
-                  v-model="contact.facebook"
+                  placeholder="edit facebook"
+                  v-model="editcontact.facebook"
                 />
               </div>
             </div>
@@ -154,30 +190,19 @@ export default {
                 <input
                   type="text"
                   name="text"
-                  placeholder="add Image URL"
-                  v-model="contact.imageUrl"
+                  placeholder="edit imageUrl"
+                  v-model="editcontact.imageUrl"
                 />
               </div>
             </div>
             <div class="ui center aligned">
               <div class="ui basic buttons">
-                <button
-    
-                  class="ui blue basic button"
-                  @click="pushToAPI()"
-                >
+                <button class="ui blue basic button" @click="editToAPI">
                   <i class="save outline icon"></i>Save
                 </button>
-                <router-link
-                  class="ui blue basic button"
-                  @click="clearfield()"
-                  :to="{
-                    path: '/Cards',
-                    name: 'Cards',
-                  }"
-                >
+                <button class="ui blue basic button" @click="clearfield">
                   <i class="times red icon"></i>Close
-                </router-link>
+                </button>
               </div>
             </div>
           </div>

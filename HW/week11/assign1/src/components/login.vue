@@ -1,4 +1,5 @@
-<script setup></script>
+<script>
+</script>
 <template>
   <div class="row justify-content-center align-items-center">
     <div class="col-sm-4"></div>

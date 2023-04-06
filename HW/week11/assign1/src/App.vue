@@ -1,8 +1,9 @@
 <script setup>
-import login from "../src/components/login.vue"
+// import login from "../src/components/login.vue"
 import searchbar from "../src/components/searchbar.vue"
-import NewContact from "./components/NewContact.vue";
-import cardList from "../src/components/Card.vue"
+// import NewContact from "./components/NewContact.vue";
+// import cardList from "../src/components/Card.vue"
+import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
@@ -16,10 +17,11 @@ import cardList from "../src/components/Card.vue"
         </div>
       </div>
     </div>
-    <searchbar/>
+    <RouterView />
+    <!-- <searchbar/> -->
     <!-- <login/> -->
     <!-- <NewContact/> -->
-    <cardList/>
+    <!-- <cardList/> -->
 </template>
 
 <style scoped>

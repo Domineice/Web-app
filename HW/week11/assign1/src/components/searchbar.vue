@@ -1,4 +1,8 @@
-<script setup></script>
+<script>
+export default{
+  name :"searchbarcontext"
+}
+</script>
 <template>
     <div class="ui raised segment">
       <a class="ui green ribbon label"><h5>Contacts</h5></a>
@@ -14,10 +18,9 @@
 .ui.raised.segment {
   margin-left: 3%;
   margin-right: 3%;
-  /* position: relative; */
   padding-top: 5px;
   padding-bottom:5px;
-  /* display: table; */
+
 }
 
 .ui.action.input{
