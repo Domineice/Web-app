@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Cards from '../components/Card.vue'
-import editContact from '../components/editContact.vue'
-import newContact from '../components/NewContact.vue'
-import login from '../components/login.vue'
+import Cards from '../views/Card.vue'
+import editContact from '../views/editContact.vue'
+import newContact from '../views/NewContact.vue'
+import login from '../views/login.vue'
 import VueCookies from 'vue-cookies';
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
