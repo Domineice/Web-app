@@ -1,10 +1,10 @@
 <script>
-import axios from 'axios';
-  export default{
-    name :"editContact",
-    data() {
+import axios from "axios";
+export default {
+  name: "editContact",
+  data() {
     return {
-      editID:"",
+      editID: "",
       getcontact: [],
       prevcontact: {
         cid: "",
@@ -27,15 +27,15 @@ import axios from 'axios';
     };
   },
   mounted() {
-    console.log(this.$route.params.editId)
-    var url = "http://127.0.0.1:5005/contacts/"+this.$route.params.editId;
+    console.log(this.$route.params.editId);
+    var url = "http://127.0.0.1:5005/contacts/" + this.$route.params.editId;
     // console.log(url);
     axios
       .get(url)
       .then((response) => {
         this.getcontact = response.data[0];
-        this.editcontact= this.getcontact;
-        this.prevcontact= this.getcontact;
+        this.editcontact = this.getcontact;
+        this.prevcontact = this.getcontact;
         // console.log(this.editcontact);
       })
       .catch((error) => {
@@ -43,43 +43,41 @@ import axios from 'axios';
       });
   },
   methods: {
-    editToAPI() {
-      this.keepPrevValue()
-      var url = "http://127.0.0.1:5005/contacts/"+this.$route.params.editId;
-     
-        axios
-        .post(url,this.editcontact)
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.error();
-        })
-        alert("Edit successful")
+    async editToAPI() {
+      try {
+        this.keepPrevValue();
+        const url =
+          "http://127.0.0.1:5005/contacts/" + this.$route.params.editId;
+        const response = await axios.post(url, this.editcontact);
+        console.log(response);
+        // alert("Edit successful")
         this.$router.push("/Cards");
-      
+      } catch (error) {
+        console.error(error);
+        alert("Edit failed");
+      }
     },
-    keepPrevValue(){
-      if(this.editcontact.cid.length<=0){
-        this.editcontact.cid = this.prevcontact.cid
+    keepPrevValue() {
+      if (this.editcontact.cid.length <= 0) {
+        this.editcontact.cid = this.prevcontact.cid;
       }
-      if(this.editcontact.firstname.length<=0){
-        this.editcontact.firstname = this.prevcontact.firstname
+      if (this.editcontact.firstname.length <= 0) {
+        this.editcontact.firstname = this.prevcontact.firstname;
       }
-      if(this.editcontact.lastname.length<=0){
-        this.editcontact.lastname = this.prevcontact.lastname
+      if (this.editcontact.lastname.length <= 0) {
+        this.editcontact.lastname = this.prevcontact.lastname;
       }
-      if(this.editcontact.mobile.length<=0){
-        this.editcontact.mobile = this.prevcontact.mobile
+      if (this.editcontact.mobile.length <= 0) {
+        this.editcontact.mobile = this.prevcontact.mobile;
       }
-      if(this.editcontact.email.length<=0){
-        this.editcontact.email = this.prevcontact.email
+      if (this.editcontact.email.length <= 0) {
+        this.editcontact.email = this.prevcontact.email;
       }
-      if(this.editcontact.facebook.length<=0){
-        this.editcontact.facebook = this.prevcontact.facebook
+      if (this.editcontact.facebook.length <= 0) {
+        this.editcontact.facebook = this.prevcontact.facebook;
       }
-      if(this.editcontact.imageUrl.length<=0){
-        this.editcontact.imageUrl = this.prevcontact.imageUrl
+      if (this.editcontact.imageUrl.length <= 0) {
+        this.editcontact.imageUrl = this.prevcontact.imageUrl;
       }
     },
     clearfield() {
@@ -91,8 +89,11 @@ import axios from 'axios';
       this.editcontact.facebook = "";
       this.editcontact.imageUrl = "";
     },
+    gotomain() {
+      this.$router.push("/Cards");
+    },
   },
-  }
+};
 </script>
 <template>
   <div class="row justify-content-center align-items-center">
@@ -105,23 +106,19 @@ import axios from 'axios';
               Contacts<span class="ui teal horizontal label">Add</span>
             </h2>
             <div class="field">
-              <h6 class="loginText">
-                ContactID
-              </h6>
+              <h6 class="loginText">ContactID</h6>
               <div class="ui input focus">
                 <input
                   type="text"
                   name="text"
-                  placeholder= "edit cid" 
+                  placeholder="edit cid"
                   v-model="editcontact.cid"
                 />
               </div>
             </div>
 
             <div class="field">
-              <h6 class="loginText">
-                First Name 
-              </h6>
+              <h6 class="loginText">First Name</h6>
               <div class="ui input focus">
                 <input
                   type="text"
@@ -133,9 +130,7 @@ import axios from 'axios';
             </div>
 
             <div class="field">
-              <h6 class="loginText">
-                Last Name 
-              </h6>
+              <h6 class="loginText">Last Name</h6>
               <div class="ui input focus">
                 <input
                   type="text"
@@ -147,9 +142,7 @@ import axios from 'axios';
             </div>
 
             <div class="field">
-              <h6 class="loginText">
-                Mobile No 
-              </h6>
+              <h6 class="loginText">Mobile No</h6>
               <div class="ui input focus">
                 <input
                   type="text"
@@ -197,10 +190,14 @@ import axios from 'axios';
             </div>
             <div class="ui center aligned">
               <div class="ui basic buttons">
-                <button class="ui blue basic button" @click="editToAPI">
+                <button
+                  class="ui blue basic button"
+                  type="button"
+                  @click="editToAPI"
+                >
                   <i class="save outline icon"></i>Save
                 </button>
-                <button class="ui blue basic button" @click="clearfield">
+                <button class="ui blue basic button" @click="gotomain">
                   <i class="times red icon"></i>Close
                 </button>
               </div>

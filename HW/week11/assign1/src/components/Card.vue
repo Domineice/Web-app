@@ -26,17 +26,23 @@ export default {
   computed: {
     filterUsers: function () {
       return this.Users.filter((user) => {
-        return user.cid.match(this.search);
+        return user.firstname.match(this.search);
       });
     },
   },
   methods: {
+    async logoutprocess() {
+      // alert("Logout successful");
+      await window.$cookies.remove("Contacttoken");
+      // VueCookies.set('token', 'abc123', '1d')
+      this.$router.push("/login");
+    },
     filtermdet() {
       this.display = this.filterUsers;
     },
-    editCard(id){
+    editCard(id) {
       console.log(id);
-      this.$router.push({ name: 'editContact', params: { editId:id } })
+      this.$router.push({ name: "editContact", params: { editId: id } });
     },
     deleteCard(delid) {
       var url = "http://127.0.0.1:5005/contacts/" + delid;
@@ -93,18 +99,21 @@ export default {
     </div>
   </div>
   <div class="ui raise segment">
-    <br />
+    <div class="ui animated red button" @click="logoutprocess()" tabindex="0">
+      <div class="visible content">Logout</div>
+      <div class="hidden content">
+        <i class="sign out alternate icon"></i>
+      </div>
+    </div>
   </div>
 
   <div class="ui raise segment">
     <div class="ui five column grid">
       <!-- carddiv -->
-      <div class="column" v-for="card in display" >
+      <div class="column" v-for="card in display">
         <div class="ui card">
           <div class="image">
-            <img
-            v-bind:src="card.imageUrl"
-            />
+            <img v-bind:src="card.imageUrl" />
             <!-- <img src={{ card.imageUrl }} /> -->
           </div>
           <div class="content">
@@ -170,12 +179,14 @@ div.ui.center.aligned {
   margin-bottom: 20px;
 }
 div.ui.raise.segment {
+  text-align: right;
   margin-left: 3%;
   margin-right: 3%;
 }
 div.ui.five.column.grid {
   margin-left: 1%;
   margin-right: 1%;
+  text-align: left;
 }
 span.header {
   text-decoration: none;

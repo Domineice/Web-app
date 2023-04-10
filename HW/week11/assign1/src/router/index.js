@@ -3,8 +3,7 @@ import Cards from '../components/Card.vue'
 import editContact from '../components/editContact.vue'
 import newContact from '../components/NewContact.vue'
 import login from '../components/login.vue'
-import testRoute from '../components/testRoute.vue'
-// import {onAuthStateChanged, getAuth} from 'firebase/auth'
+import VueCookies from 'vue-cookies';
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -25,34 +24,26 @@ const router = createRouter({
       path : '/Cards',
       name : 'Cards',
       component:Cards,
-      // meta :{
-      //   requiresAuth : true
-      // }
+      meta :{
+        requiresAuth : true
+      }
     },
     {
       path : '/editContact/:editId',
       name : 'editContact',
       component:editContact,
-      // meta :{
-      //   requiresAuth : true
-      // }
+      meta :{
+        requiresAuth : true
+      }
     },
     {
       path : '/newContact',
       name : 'newContact',
       component:newContact,
-      // meta :{
-      //   requiresAuth : true
-      // }
+      meta :{
+        requiresAuth : true
+      }
     },
-    {
-      path : '/testRoute/:editId',
-      name : 'testRoute',
-      component:testRoute,
-      // meta :{
-      //   requiresAuth : true
-      // }
-    }
   ]
 })
 
@@ -69,19 +60,21 @@ const router = createRouter({
 //   })
 // }
 
-// router.beforeEach(async (to, from, next) => {
-//   const requiresAuth = to.matched.some((record) => record.meta.requiresAuth)
-//   if (requiresAuth) {
-//     if(await getCurrentUser()){
-//       console.log("You are authorized to access this area.");
-//       next()
-//     } else {
-//       console.log("You are not authorized to access this area.")
-//       next('signIn')
-//     }
-//   } else {
-//     next()
-//   }
-// })
+router.beforeEach(async (to, from, next) => {
+  const requiresAuth = to.matched.some((record) => record.meta.requiresAuth)
+  // alert("ge Path")
+  // alert(this.$cookies.key())
+  if (requiresAuth) {
+    if(window.$cookies.isKey("Contacttoken")){
+      console.log("You are authorized to access this area.");
+      next()
+    } else {
+      console.log("You are not authorized to access this area.")
+      next({name :'login'})
+    }
+  } else {
+    next()
+  }
+})
 
 export default router

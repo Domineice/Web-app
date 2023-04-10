@@ -17,35 +17,31 @@ export default {
     };
   },
   methods: {
-    pushToAPI() {
-      var url = "http://127.0.0.1:5005/contacts/";
-      // const router = useRouter()
-      if(this.contact.firstname.length > 0 &&
-        this.contact.lastname.length > 0 &&
-        this.contact.mobile.length > 0 &&
-        this.contact.cid.length > 0){
-          // this.$router.replace("/Cards");
-          if(this.contact.imageUrl.length > 0)
-          {
-            this.contact.imageUrl = "https://fomantic-ui.com/images/avatar2/large/kristy.png"
-          }
-        axios
-        .post(url, this.contact)
-        .then((response) => {
-          console.log(response);
-          
-        })
-        .catch((error) => {
-          console.error();
-        })
-        alert("Add successful")
-        this.$router.replace("/Cards");
+    async pushToAPI() {
+  try {
+    const url = "http://127.0.0.1:5005/contacts/";
+    if (
+      this.contact.firstname.length > 0 &&
+      this.contact.lastname.length > 0 &&
+      this.contact.mobile.length > 0 &&
+      this.contact.cid.length > 0
+    ) {
+      if (this.contact.imageUrl.length <= 0) {
+        this.contact.imageUrl = "https://fomantic-ui.com/images/avatar2/large/kristy.png";
       }
-      else{
-        alert("Please assign * input")
-      }
-      
-    },
+      const response = await axios.post(url, this.contact);
+      console.log(response);
+      alert("Add successful");
+      this.$router.replace("/Cards");
+    } else {
+      alert("Please fill in all required fields");
+    }
+  } catch (error) {
+    console.error(error);
+    alert("Add failed");
+  }
+}
+,
     clearfield() {
       this.contact.cid = "";
       this.contact.firstname = "";
@@ -55,6 +51,9 @@ export default {
       this.contact.facebook = "";
       this.contact.imageUrl = "";
     },
+    gotomain() {
+      this.$router.push("/Cards");
+    }
   },
 };
 </script>
@@ -163,14 +162,14 @@ export default {
               <div class="ui basic buttons">
                 <button
     
-                  class="ui blue basic button"
+                  class="ui blue basic button" type="button"
                   @click="pushToAPI()"
                 >
                   <i class="save outline icon"></i>Save
                 </button>
                 <router-link
                   class="ui blue basic button"
-                  @click="clearfield()"
+                  @click="gotomain()"
                   :to="{
                     path: '/Cards',
                     name: 'Cards',
