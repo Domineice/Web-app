@@ -1,24 +1,22 @@
+// src/compnents/SignIn.vue
 <template>
-    <div class="signUp">
-      <h1>Sign In</h1>
-      <input type="text" placeholder="Email" v-model="user.email" /><br /><br />
-      <input type="password" placeholder="Password" v-model="user.password" />
-      <button @click="signIn">Submit</button>
-      <button type="button" @click="signIngGoogle">GoogleSignIn</button>
+    <div class="row">
+        <h2>Signin</h2>
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-md-offset-3"/>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-md-offset-3">
+
+            <input type="email" class="form-control" placeholder="email" v-model="user.email">
+            <br>
+            <input type="password" class="form-control" placeholder="password" v-model = "user.password">
+            <br>
+            <button class="btn btn-success btn-block full-width" >Signin</button>
+        </div>
+
     </div>
-  </template>
-  
-  <style>
-  @media (min-width: 1024px) {
-    .about {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-    }
-  }
-  </style>
-  <script>
-  import {
+</template>
+
+<script>
+ import {
     getAuth,
     signInWithEmailAndPassword,signInWithPopup,GoogleAuthProvider
   } from "firebase/auth";
@@ -32,13 +30,14 @@
         },
       };
     },
+  methods: {
     methods: {
       signIn() {
         const auth = getAuth();
         signInWithEmailAndPassword(auth, this.user.email, this.user.password)
           .then((UserCredential) => {
             console.log("Successful signIn");
-            this.$router.replace("/movies");
+            this.$router.replace("/");
           })
           .catch((error) => console.log(error.code + ":" + error.message));
       },
@@ -51,7 +50,7 @@
           console.log("token: "+token)
           const user = result.user
           console.log("User: "+user)
-          this.$router.replace("/movies")
+          this.$router.replace("/")
         })
         .catch((error)=>{
           const errorCode = error.code
@@ -61,6 +60,27 @@
         })
       }
     },
-  };
-  </script>
-  
+  }
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+h1,
+h2 {
+  font-weight: normal;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin: 0 10px;
+}
+
+a {
+  color: #42b983;
+}
+</style>
