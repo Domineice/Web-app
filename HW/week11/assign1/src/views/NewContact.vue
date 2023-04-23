@@ -18,30 +18,40 @@ export default {
   },
   methods: {
     async pushToAPI() {
-  try {
-    const url = "http://127.0.0.1:5005/contacts/";
-    if (
-      this.contact.firstname.length > 0 &&
-      this.contact.lastname.length > 0 &&
-      this.contact.mobile.length > 0 &&
-      this.contact.cid.length > 0
-    ) {
-      if (this.contact.imageUrl.length <= 0) {
-        this.contact.imageUrl = "https://fomantic-ui.com/images/avatar2/large/kristy.png";
+      try {
+        const url = "https://six213129webassignback.onrender.com/contacts/";
+
+        if (!this.validatePhoneNumber()) {
+          alert("Please enter a valid phone number");
+        } else if (
+          this.contact.firstname.length > 0 &&
+          this.contact.lastname.length > 0 &&
+          this.contact.mobile.length > 0 &&
+          this.contact.cid.length > 0
+        ) {
+          if (this.contact.imageUrl.length <= 0) {
+            this.contact.imageUrl =
+              "https://fomantic-ui.com/images/avatar2/large/kristy.png";
+          }
+          const response = await axios.post(url, this.contact);
+          console.log(response);
+          alert("Add successful");
+          this.$router.replace("/Cards");
+        } else {
+          alert("Please fill in all required fields");
+        }
+      } catch (error) {
+        console.error(error);
+        alert("Add failed");
       }
-      const response = await axios.post(url, this.contact);
-      console.log(response);
-      alert("Add successful");
-      this.$router.replace("/Cards");
-    } else {
-      alert("Please fill in all required fields");
-    }
-  } catch (error) {
-    console.error(error);
-    alert("Add failed");
-  }
-}
-,
+    },
+    validatePhoneNumber() {
+      const phoneNumberRegex = /^\d{10}$/; // matches exactly 10 digits
+
+      return (this.validPhoneNumber = phoneNumberRegex.test(
+        this.contact.mobile
+      ));
+    },
     clearfield() {
       this.contact.cid = "";
       this.contact.firstname = "";
@@ -53,7 +63,7 @@ export default {
     },
     gotomain() {
       this.$router.push("/Cards");
-    }
+    },
   },
 };
 </script>
@@ -121,13 +131,16 @@ export default {
                   v-model="contact.mobile"
                 />
               </div>
+              <p v-if="!validPhoneNumber">
+                Please enter a 10-digit phone number.
+              </p>
             </div>
 
             <div class="field">
               <h6 class="loginText">Email</h6>
               <div class="ui input focus">
                 <input
-                  type="text"
+                  type="email"
                   name="text"
                   placeholder="add Email"
                   v-model="contact.email"
@@ -161,8 +174,8 @@ export default {
             <div class="ui center aligned">
               <div class="ui basic buttons">
                 <button
-    
-                  class="ui blue basic button" type="button"
+                  class="ui blue basic button"
+                  type="button"
                   @click="pushToAPI()"
                 >
                   <i class="save outline icon"></i>Save

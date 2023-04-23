@@ -1,6 +1,6 @@
 <script setup>
 // import login from "../src/components/login.vue"
-import searchbar from "../src/components/searchbar.vue"
+// import searchbar from "../src/components/searchbar.vue"
 // import NewContact from "./components/NewContact.vue";
 // import cardList from "../src/components/Card.vue"
 import { RouterLink, RouterView } from 'vue-router'

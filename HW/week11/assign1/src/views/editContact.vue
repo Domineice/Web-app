@@ -28,7 +28,9 @@ export default {
   },
   mounted() {
     console.log(this.$route.params.editId);
-    var url = "http://127.0.0.1:5005/contacts/" + this.$route.params.editId;
+    var url =
+      "https://six213129webassignback.onrender.com/contacts/" +
+      this.$route.params.editId;
     // console.log(url);
     axios
       .get(url)
@@ -46,16 +48,28 @@ export default {
     async editToAPI() {
       try {
         this.keepPrevValue();
-        const url =
-          "http://127.0.0.1:5005/contacts/" + this.$route.params.editId;
-        const response = await axios.post(url, this.editcontact);
-        console.log(response);
-        // alert("Edit successful")
-        this.$router.push("/Cards");
+        if (!this.validatePhoneNumber()) {
+          alert("Please enter a valid phone number");
+        } else {
+          const url =
+            "https://six213129webassignback.onrender.com/contacts/" +
+            this.$route.params.editId;
+          const response = await axios.post(url, this.editcontact);
+          console.log(response);
+          // alert("Edit successful")
+          this.$router.push("/Cards");
+        }
       } catch (error) {
         console.error(error);
         alert("Edit failed");
       }
+    },
+    validatePhoneNumber() {
+      const phoneNumberRegex = /^\d{10}$/; // matches exactly 10 digits
+
+      return (this.validPhoneNumber = phoneNumberRegex.test(
+        this.contact.mobile
+      ));
     },
     keepPrevValue() {
       if (this.editcontact.cid.length <= 0) {
@@ -150,6 +164,9 @@ export default {
                   placeholder="edit mobile no"
                   v-model="editcontact.mobile"
                 />
+                <p v-if="!validPhoneNumber">
+                  Please enter a 10-digit phone number.
+                </p>
               </div>
             </div>
 
@@ -157,7 +174,7 @@ export default {
               <h6 class="loginText">Email</h6>
               <div class="ui input focus">
                 <input
-                  type="text"
+                  type="email"
                   name="text"
                   placeholder="edit email"
                   v-model="editcontact.email"

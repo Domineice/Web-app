@@ -10,6 +10,8 @@ const { MongoClient, Collection } = require("mongodb");
 const url = "mongodb://127.0.0.1:27017";
 
 // mongodb+srv://contact:YRIAFRQR1NFIcsHM@contactlist.c2xlua1.mongodb.net/?retryWrites=true&w=majority
+
+z0AIncfgH7nKiNQp
 const client = new MongoClient(url);
 
 const cors = require('cors')
