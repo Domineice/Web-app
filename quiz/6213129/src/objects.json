@@ -1,0 +1,26 @@
+{
+    "5ab72d7d214c0d5667dcfed7": {
+        "objtype" : "rectangle",
+        "width" : 10,
+        "height" : 20,
+        "depth" : 10
+    },
+    "5ab73c3df003ac8939f13166": {
+        "objtype" : "triangle",
+        "width" : 15,
+        "height" : 15,
+        "depth" : 10
+    },
+    "5ab73c45f003ac8939f1316a": {
+        "objtype" : "rectangle",
+        "width" : 15,
+        "height" : 20,
+        "depth" : 15
+    },
+    "5ab73c56f003ac8939f13171": {
+        "objtype" : "triangle",
+        "width" : 20,
+        "height" : 20,
+        "depth" : 20
+    }
+}
